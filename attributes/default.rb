@@ -34,6 +34,8 @@ default.ca_openldap.ldap_port = node.ca_openldap.default_ports.ldap
 
 default.ca_openldap.db_dir = "/var/lib/ldap"
 
+default.ca_openldap.slapd_sysconfig = "/etc/sysconfig/ldap"
+
 # Default rootDN (relative to the basedn)
 default.ca_openldap.rootdn = "cn=Manager"
 

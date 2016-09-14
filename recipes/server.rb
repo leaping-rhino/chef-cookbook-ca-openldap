@@ -65,14 +65,15 @@ ldaps_port = node.ca_openldap.default_ports.ldaps
 urls = []
 urls << "ldap://*:#{ldap_port}" if use_ldap == "yes"
 urls << "ldaps://*:#{ldaps_port}" if use_ldaps == "yes"
+urls << "ldapi:///"
 
 ruby_block "tls_connection_configuration" do
   block do
-    f = Chef::Util::FileEdit.new("/etc/sysconfig/ldap")
+    f = Chef::Util::FileEdit.new(node.ca_openldap.slapd_sysconfig)
     f.search_file_replace_line(/SLAPD_LDAP=/, "SLAPD_LDAP=no")
     f.search_file_replace_line(/SLAPD_LDAPS=/, "SLAPD_LDAPS=no")
     f.search_file_replace_line(/SLAPD_LDAPI=/, "SLAPD_LDAPI=yes")
-    f.search_file_replace_line(/SLAPD_URLS=/, "SLAPD_URLS=\"#{urls.join ""}\"")
+    f.search_file_replace_line(/SLAPD_URLS=/, "SLAPD_URLS=\"#{urls.join " "}\"")
     f.write_file
   end
 end
@@ -96,7 +97,7 @@ my_root_dn = build_rootdn
 ruby_block "bdb_config" do
   block do
 
-    slapd_conf_file = '/etc/openldap/slapd.d/cn=config/olcDatabase={2}bdb.ldif'
+    slapd_conf_file = '/etc/openldap/slapd.d/cn=config/olcDatabase={2}hdb.ldif'
     password = LDAPUtils.ssha_password(node.ca_openldap.rootpassword)
 
     #configure suffix
