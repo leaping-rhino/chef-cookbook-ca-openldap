@@ -122,11 +122,13 @@ default.ca_openldap.tls.enable = :exclusive
 # Path of the directory which contains the TLS CA certificates
 default.ca_openldap.tls.cacert_path = "/etc/openldap/cacerts"
 
+fqdn = lazy { node[:fqdn] }
+
 # Path of the TLS certificate file
-default.ca_openldap.tls.cert_file = "/etc/openldap/certs/#{node.fqdn}.pem"
+default.ca_openldap.tls.cert_file = "/etc/openldap/certs/#{fqdn}.pem"
 
 # Path of the TLS key file
-default.ca_openldap.tls.key_file = "/etc/openldap/certs/#{node.fqdn}.key"
+default.ca_openldap.tls.key_file = "/etc/openldap/certs/#{fqdn}.key"
 
 # Assume the CA certificate, the server certificate and its related key already exist under default directory (/etc/pki/tls for RHEL).
 # When this attribute is set to true, the following links are created:
