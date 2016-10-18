@@ -130,6 +130,12 @@ default.ca_openldap.tls.cert_file = "/etc/openldap/certs/#{fqdn}.pem"
 # Path of the TLS key file
 default.ca_openldap.tls.key_file = "/etc/openldap/certs/#{fqdn}.key"
 
+# Check TLS certificate
+# :never Don't check the TLS certificate
+# :allow Allow 'bad' certificates
+# :try Deny 'bad' certificates (default)
+default.ca_openldap.tls.reqcert = :try
+
 # Assume the CA certificate, the server certificate and its related key already exist under default directory (/etc/pki/tls for RHEL).
 # When this attribute is set to true, the following links are created:
 # * node.ca_openldap.tls.cert_file: points to the Server certificate (/etc/pki/tls/certs/<fqdn>.pem for RHEL)

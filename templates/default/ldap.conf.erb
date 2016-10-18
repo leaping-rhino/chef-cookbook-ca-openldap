@@ -20,3 +20,6 @@ URI   ldaps://<%=node['ca_openldap']['ldap_server']%>:<%=node['ca_openldap']['ld
 URI   ldap://<%=node['ca_openldap']['ldap_server']%>:<%=node['ca_openldap']['ldap_port']%>
 <%end%>
 TLS_CACERTDIR     <%=node.ca_openldap.tls.cacert_path%>
+<%if node['ca_openldap']['tls']['reqcert'] != nil %>
+TLS_REQCERT <%=node['ca_openldap']['tls']['reqcert']%>
+<%end%>
